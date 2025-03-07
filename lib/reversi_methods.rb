@@ -62,8 +62,9 @@ module ReversiMethods
 
   def turn(board, target_pos, attack_stone_color, direction)
     return false if target_pos.out_of_board?
-    return false if target_pos.stone_color(board) == attack_stone_color
-
+    stone = target_pos.stone_color(board)
+    return false if stone == attack_stone_color
+    return false if stone == BLANK_CELL
     next_pos = target_pos.next_position(direction)
     if (next_pos.stone_color(board) == attack_stone_color) || turn(board, next_pos, attack_stone_color, direction)
       board[target_pos.row][target_pos.col] = attack_stone_color
